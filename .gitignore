@@ -1,0 +1,50 @@
+# ---------------[ Unity generated ]------------------ #
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+UnityGenerated/
+ProjectSettings/*.asset
+
+# ----[ Visual Studio / MonoDevelop generated ]------- #
+
+ExportedObj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+
+# -------------[ OS generated ]------------------------ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# -------------[ Build ]------------------------ #
+*.html
+*.unity3d
+
+### https://raw.github.com/github/gitignore/e56901553585d7ac024fd7ff121f97d47a643a5c/Global/SublimeText.gitignore
+
+# cache files for sublime text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# workspace files are user-specific
+*.sublime-workspace
+
+# project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using SublimeText
+# *.sublime-project
+
+# sftp configuration file
+sftp-config.json
