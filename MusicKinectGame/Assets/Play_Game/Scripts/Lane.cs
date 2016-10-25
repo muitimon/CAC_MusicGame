@@ -9,7 +9,7 @@ public class NoteData{
 }
 
 public class Lane : MonoBehaviour {
-	public    Vector2 startPoint    = new Vector2(5.0f,12.0f);
+	public    Vector3 startPoint    = new Vector3(0.0f,0.0f,0.0f);
 	protected int     nextTimingNum = 0;
 	protected int     nextObjectNum = 0;
 	public    float   offScreenPos  = -5.0f;

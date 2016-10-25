@@ -7,7 +7,7 @@ public class NoteLane : Lane {
 	public GameObject[] noteObjects = new GameObject[4];//ノーツオブジェクト
 	public Note[] notes = new Note[4];
 	void Start(){
-		startPoint    = new Vector2(5.0f,12.0f);
+		startPoint    = new Vector3(0.0f,0.0f,0.0f);
 	}
 	// Update is called once per frame
 	void Update () {

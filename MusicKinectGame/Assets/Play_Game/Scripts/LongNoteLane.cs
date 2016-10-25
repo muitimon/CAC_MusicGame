@@ -16,7 +16,7 @@ public class LongNoteLane : Lane {
 	public bool nowLong = false;
 
 	void Start(){
-		startPoint    = new Vector2(5.0f,12.0f);
+		startPoint    = new Vector3(0.0f,0.0f,0.0f);
 		offScreenPos = -3.0f;
 	}
 		
