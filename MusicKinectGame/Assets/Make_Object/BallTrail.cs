@@ -15,6 +15,7 @@ public class BallTrail : MonoBehaviour {
 	}
 
 	void Update () {
-		trailRenderer.enabled = (_rigidbody.velocity.magnitude > trailEnableSpeed);
+		//trailRenderer.enabled = (_rigidbody.velocity.magnitude > trailEnableSpeed);
+		trailRenderer.enabled = true;
 	}
 }
