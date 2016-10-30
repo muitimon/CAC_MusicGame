@@ -25,6 +25,7 @@ public class LongNoteTiming{
 	public Timing startTiming;
 	public Timing endTiming;
 
+    public float longActiveTime;
 	/*LongNoteTiming(Timing startTiming, Timing endTiming){
 		this.startTiming = startTiming;
 		this.endTiming = endTiming;
@@ -46,6 +47,7 @@ public class GameSystem : MonoBehaviour {
 		//List<LongNoteTiming>[] longNoteTimingList = new List<LongNoteTiming>[item.maxBlock-3];
 		List<Timing>[] longNoteStartTimingList = new List<Timing>[item.maxBlock-3];
 		List<Timing>[] longNoteEndTimingList = new List<Timing>[item.maxBlock-3];
+        List<float>[] longActiveTimeList = new List<float>[item.maxBlock - 3];
 		for(int i = 0;i<timingList.Length;i++){
 			//リストのリストになっている
 			timingList [i] = new List<Timing> ();
@@ -56,6 +58,10 @@ public class GameSystem : MonoBehaviour {
 		for(int i = 0;i<longNoteEndTimingList.Length;i++){
 			longNoteEndTimingList[i] = new List<Timing>();
 		}
+        for (int i = 0;i<longActiveTimeList.Length;i++)
+        {
+            longActiveTimeList[i] = new List<float>();
+        }
 		foreach (NoteInformation note in item.notes) {
 			int type = note.type;
 			if(type == 1){
@@ -66,9 +72,14 @@ public class GameSystem : MonoBehaviour {
 					LongNoteTiming tmp = new LongNoteTiming();
 					tmp.startTiming = LoadTiming (note.num+32);
 					tmp.endTiming = LoadTiming (longNote.num+32);
+                 
 					longNoteStartTimingList [note.block].Add (tmp.startTiming);
 					longNoteEndTimingList [note.block].Add (tmp.endTiming);
-				}
+                    float longTiming = longNote.num - note.num;
+                    float longTime = (longTiming * 2 / 25) * 1.31f;
+                   // Debug.Log(longTime);
+                    longActiveTimeList[note.block].Add(longTime);
+                }
 			}
 		}
 
@@ -85,6 +96,7 @@ public class GameSystem : MonoBehaviour {
 			longNoteLane [i].startTimings = longNoteStartTimingList [i].ToArray ();
 			longNoteEndTimingList [i].Add (new Timing (0, 0, 0));
 			longNoteLane [i].endTimings = longNoteEndTimingList [i].ToArray ();
+            longNoteLane[i].longActiveTimes = longActiveTimeList[i].ToArray();
 		}
 	}
 
