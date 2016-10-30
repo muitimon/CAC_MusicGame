@@ -37,6 +37,7 @@ public class GameSystem : MonoBehaviour {
 	public string loadJsonFileName;
 	public NoteLane[] noteLane = new NoteLane[11];
 	public LongNoteLane[] longNoteLane = new LongNoteLane[8];
+    public float highSpeedLevel = 0.5f;
 
 	void LoadJson(string fileName){
 		var textAsset =  Resources.Load ("kanki_Heaven_Hard") as TextAsset;
@@ -88,8 +89,8 @@ public class GameSystem : MonoBehaviour {
 			0,0,0は決して最後にならないので良い*/
 			timingList [i].Add (new Timing (0, 0, 0));
 			noteLane [i].timings = timingList [i].ToArray ();//timingListをリストから配列に変換し、各レーンのタイミングデータにする.
-
-		}
+            noteLane[i].highSpeedLevel = highSpeedLevel;
+        }
 
 		for (int i = 0; i < longNoteLane.Length; i++) {
 			longNoteStartTimingList [i].Add (new Timing (0, 0, 0));
@@ -97,7 +98,8 @@ public class GameSystem : MonoBehaviour {
 			longNoteEndTimingList [i].Add (new Timing (0, 0, 0));
 			longNoteLane [i].endTimings = longNoteEndTimingList [i].ToArray ();
             longNoteLane[i].longActiveTimes = longActiveTimeList[i].ToArray();
-		}
+            longNoteLane[i].highSpeedLevel = highSpeedLevel;
+        }
 	}
 
 	private Timing LoadTiming(int n){

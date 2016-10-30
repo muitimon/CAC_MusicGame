@@ -16,18 +16,19 @@ public class Yajirusi : MonoBehaviour {
             x = x + 0.015f;
             if (Music.IsNearChangedBar())
             {
+                x = x - 0.025f;
                 Xincrease = false;
             }
         }else
         {
-            x = x - 0.03f;
+            x = x - 0.025f;
             if (Music.IsJustChangedBar())
             {
                 Xincrease = true;
                 x = 0f;
             }
         }
-        float scale = QuadricFunc(x) + 0.5f;
+        float scale = QuadricFunc(x) + 0.8f;
         gameObject.transform.localScale = new Vector3(scale, scale, scale);
   
         

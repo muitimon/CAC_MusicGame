@@ -6,6 +6,7 @@ public class NoteLane : Lane {
 	public Timing[] timings;
 	public GameObject[] noteObjects = new GameObject[4];//ノーツオブジェクト
 	public Note[] notes = new Note[4];
+
 	void Start(){
 		startPoint    = new Vector3 (0.0f,-27.0f,30.0f);
         offScreenPos = 0.0f;
@@ -22,8 +23,9 @@ public class NoteLane : Lane {
 			activeNotes.Add(tmp);
 			notes [nextObjectNum].note = tmp;
 			notes [nextObjectNum].startPoint = startPoint;
-			//noteObjects [nextObjectNum].SendMessage ("");
-			nextTimingNum++;
+            notes[nextObjectNum].highSpeedLevel = highSpeedLevel;
+            //noteObjects [nextObjectNum].SendMessage ("");
+            nextTimingNum++;
 			nextObjectNum = manageObjNum(nextObjectNum,noteObjects.Length);
 		}
 		//アクティブノーツの移動処理
