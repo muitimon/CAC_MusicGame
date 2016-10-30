@@ -7,7 +7,7 @@ public class Note : MonoBehaviour {
 	public Vector3 startPoint= new Vector3 (0.0f, -27.0f, 60.0f);
     // Use this for initialization
     void Start () {
-		startPoint = new Vector3 (0.0f, -27.0f, 60.0f);
+		startPoint = new Vector3 (0.0f, -27.0f, 30.0f);
 		//move = true;
 	}
 
