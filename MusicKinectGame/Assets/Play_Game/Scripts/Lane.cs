@@ -9,8 +9,8 @@ public class NoteData{
 }
 
 public class Lane : MonoBehaviour {
-	public    Vector3 startPoint    = new Vector3(0.0f,0.0f,0.0f);
-	protected int     nextTimingNum = 0;
+	public    Vector3 startPoint    =  new Vector3(-2.0f, -28.0f, 88.0f);
+    protected int     nextTimingNum = 0;
 	protected int     nextObjectNum = 0;
 	public    float   offScreenPos  = -5.0f;
 	public 	  GameObject[] 	 ranks       = new GameObject[2];
