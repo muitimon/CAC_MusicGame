@@ -5,8 +5,8 @@ public class LongStartNote :Note {
 
 	// Use this for initialization
 	void Start () {
-        startPoint = new Vector3(0.0f, -27.0f, 60.0f);
-    }
+		//startPoint    = new Vector2(5.0f,12.0f);
+	}
 
 	void Update () {
 		float time = Music.MusicalTimeFrom (note.timing);
