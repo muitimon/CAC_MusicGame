@@ -37,7 +37,7 @@ public class GameSystem : MonoBehaviour {
 	public string loadJsonFileName;
 	public NoteLane[] noteLane = new NoteLane[11];
 	public LongNoteLane[] longNoteLane = new LongNoteLane[8];
-    public float highSpeedLevel = 0.5f;
+    public int highSpeedLevel = 28;
 
 	void LoadJson(string fileName){
 		var textAsset =  Resources.Load ("kanki_Heaven_Hard") as TextAsset;

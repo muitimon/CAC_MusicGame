@@ -14,7 +14,7 @@ public class LongStartNote :Note {
 		//Debug.Log ("move!!!");
 		if (time <= 0.0f) {
 			float pos = time / note.startTime;
-			note.obj.transform.localPosition = startPoint * pos*highSpeedLevel;
+			note.obj.transform.localPosition = startPoint * pos;
         }else
         {
             note.obj.transform.localPosition = new Vector3(0.0f,0.0f,0.0f);

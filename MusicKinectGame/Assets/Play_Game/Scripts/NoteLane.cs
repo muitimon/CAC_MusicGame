@@ -8,13 +8,13 @@ public class NoteLane : Lane {
 	public Note[] notes = new Note[4];
 
 	void Start(){
-		startPoint    = new Vector3 (0.0f,-27.0f,30.0f);
+		startPoint    = new Vector3 (0.0f,-27.0f,60.0f);
         offScreenPos = 0.0f;
 	}
 	// Update is called once per frame
 	void Update () {
 		//ノーツ発生処理
-		if(equalTiming(Music.Near, timings[nextTimingNum],-16)){
+		if(equalTiming(Music.Near, timings[nextTimingNum],-1*highSpeedLevel)){
 			NoteData tmp = new NoteData();
 			tmp.obj = createNote(noteObjects[nextObjectNum]);
 			tmp.timing = timings[nextTimingNum];
@@ -23,7 +23,6 @@ public class NoteLane : Lane {
 			activeNotes.Add(tmp);
 			notes [nextObjectNum].note = tmp;
 			notes [nextObjectNum].startPoint = startPoint;
-            notes[nextObjectNum].highSpeedLevel = highSpeedLevel;
             //noteObjects [nextObjectNum].SendMessage ("");
             nextTimingNum++;
 			nextObjectNum = manageObjNum(nextObjectNum,noteObjects.Length);
