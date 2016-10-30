@@ -5,7 +5,7 @@ public class LongStartNote :Note {
 
 	// Use this for initialization
 	void Start () {
-		startPoint    = new Vector2(5.0f,12.0f);
+		//startPoint    = new Vector2(5.0f,12.0f);
 	}
 
 	void Update () {
