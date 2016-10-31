@@ -11,7 +11,7 @@ public class BallTrail : MonoBehaviour {
 
 	void Start () {
 		_rigidbody = GetComponent<Rigidbody> ();
-		trailRenderer = GetComponent<TrailRenderer> ();
+        trailRenderer = GetComponent<TrailRenderer> ();
 	}
 
 	void Update () {
