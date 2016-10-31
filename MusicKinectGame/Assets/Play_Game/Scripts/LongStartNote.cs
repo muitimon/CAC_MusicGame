@@ -9,7 +9,7 @@ public class LongStartNote :Note {
         startPoint = new Vector3(0.0f, -27.0f, 30.0f);
     }*/
 
-	void Update () {
+	void Update () { 
 		float time = Music.MusicalTimeFrom (note.timing);
 		//Debug.Log ("move!!!");
 		if (time <= 0.0f) {
