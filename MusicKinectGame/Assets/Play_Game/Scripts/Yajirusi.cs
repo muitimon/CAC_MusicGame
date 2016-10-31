@@ -13,16 +13,16 @@ public class Yajirusi : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (Xincrease) {
-            x = x + 0.015f;
-            if (Music.IsNearChangedBar())
+            x = x + 0.1f;
+            if (Music.IsNearChangedBeat())
             {
-                x = x - 0.025f;
+                x = x - 0.2f;
                 Xincrease = false;
             }
         }else
         {
-            x = x - 0.025f;
-            if (Music.IsJustChangedBar())
+            x = x - 0.2f;
+            if (Music.IsJustChangedBeat())
             {
                 Xincrease = true;
                 x = 0f;
@@ -36,7 +36,7 @@ public class Yajirusi : MonoBehaviour {
 
     float QuadricFunc(float x)
     {
-        x = x * x;
+        x = 1/(1+Mathf.Exp(x));
         return x;
     }
 }
