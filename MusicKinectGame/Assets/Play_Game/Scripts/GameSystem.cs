@@ -146,28 +146,36 @@ public class GameSystem : MonoBehaviour {
 		}
 	}
 
-	/*public void GetInput(int n){
-		if(n==1){
-			noteLane [4].hit ();
+
+	public void GetInput(int n)
+	{
+		if (n == 4)
+		{
+			noteLane[4].hit();
 			longNoteLane[4].hit(true);
 		}
-		if(Input.GetKeyDown(KeyCode.C)){
-			noteLane [5].hit ();
+		if (n == 7)
+		{
+			noteLane[5].hit();
 			longNoteLane[5].hit(true);
 		}
-		if(Input.GetKeyDown(KeyCode.Z)){
-			noteLane [6].hit ();
+		if (n == 6)
+		{
+			noteLane[6].hit();
 			longNoteLane[6].hit(true);
 		}
-		if(Input.GetKeyDown(KeyCode.X)){
-			noteLane [7].hit ();
+		if (n == 5)
+		{
+			noteLane[7].hit();
 			longNoteLane[7].hit(true);
 		}
-		if(Input.GetKeyDown(KeyCode.V)){
-			noteLane [9].hit ();
+		if (n == 9)
+		{
+			noteLane[10].hit();
 		}
-		if(Input.GetKeyDown(KeyCode.Space)){
-			noteLane [10].hit ();
+		if (n == 10)
+		{
+			noteLane[8].hit();
 		}
-	}*/
+	}
 }
