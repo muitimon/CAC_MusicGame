@@ -132,28 +132,66 @@ public class GameSystem : MonoBehaviour {
 		}
 	}
 
-	/*public void GetInput(int n){
-		if(n==1){
-			noteLane [4].hit ();
+	public void GetInput(int n)
+	{
+		// 右手通常ノーツ
+		if (n == 0)
+		{
+			noteLane[0].hit();
+			longNoteLane[0].hit(true);
+		}
+		if (n == 3)
+		{
+			noteLane[1].hit();
+			longNoteLane[1].hit(true);
+		}
+		if (n == 2)
+		{
+			noteLane[2].hit();
+			longNoteLane[2].hit(true);
+		}
+		if (n == 1)
+		{
+			noteLane[3].hit();
+			longNoteLane[3].hit(true);
+		}
+
+		// 左手通常ノーツ
+		if (n == 4)
+		{
+			noteLane[4].hit();
 			longNoteLane[4].hit(true);
 		}
-		if(Input.GetKeyDown(KeyCode.C)){
-			noteLane [5].hit ();
+		if (n == 7)
+		{
+			noteLane[5].hit();
 			longNoteLane[5].hit(true);
 		}
-		if(Input.GetKeyDown(KeyCode.Z)){
-			noteLane [6].hit ();
+		if (n == 6)
+		{
+			noteLane[6].hit();
 			longNoteLane[6].hit(true);
 		}
-		if(Input.GetKeyDown(KeyCode.X)){
-			noteLane [7].hit ();
+		if (n == 5)
+		{
+			noteLane[7].hit();
 			longNoteLane[7].hit(true);
 		}
-		if(Input.GetKeyDown(KeyCode.V)){
-			noteLane [9].hit ();
+
+		// ジャンプ
+		if (n == 10)
+		{
+			noteLane[8].hit();
 		}
-		if(Input.GetKeyDown(KeyCode.Space)){
-			noteLane [10].hit ();
+
+		// 回転（右手、左手）
+		if (n == 8)
+		{
+			noteLane[9].hit();
 		}
-	}*/
+		if (n == 9)
+		{
+			noteLane[10].hit();
+		}
+	}
 }
