@@ -9,18 +9,18 @@ public class NoteData{
 }
 
 public class Lane : MonoBehaviour {
-	public    Vector3 startPoint    =  new Vector3(-2.0f, -28.0f, 88.0f);
+	protected    Vector3 startPoint    =  new Vector3(0.0f, -28.0f, 60.0f);
     protected int     nextTimingNum = 0;
 	protected int     nextObjectNum = 0;
-	public    float   offScreenPos  = -5.0f;
+	public    float   offScreenPos  = -40.0f;
 	public 	  GameObject[] 	 ranks       = new GameObject[2];
 	protected List<NoteData> activeNotes = new List<NoteData> ();
+    public int highSpeedLevel;
 
 
 
-	//protected struct 
-
-	public int manageObjNum(int n, int maxNum){
+    //protected struct 
+    public int manageObjNum(int n, int maxNum){
 		int num = n;
 		if (num < maxNum-1) {
 			num++;
@@ -86,15 +86,15 @@ public class Lane : MonoBehaviour {
 	}
 
 	public GameObject createNote(GameObject obj){
-		obj.SetActive(true);
 		obj.transform.position = startPoint;
-		obj.GetComponent<Note> ().enabled = true;
-		return obj;
+        obj.GetComponent<Note> ().enabled = true;
+        obj.SetActive(true);
+        return obj;
 	}
 	public GameObject createRank(GameObject obj){
-		obj.SetActive(true);
 		obj.transform.position = startPoint;
-		return obj;
+        obj.SetActive(true);
+        return obj;
 	}
 
 	bool equalTiming(Timing a,Timing b){
