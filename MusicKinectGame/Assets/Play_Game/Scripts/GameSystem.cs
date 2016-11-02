@@ -34,7 +34,7 @@ public class LongNoteTiming{
 
 [Serializable]
 public class GameSystem : MonoBehaviour {
-    public static int score = 0;
+    public int score = 0;
 	public string loadJsonFileName;
 	public NoteLane[] noteLane = new NoteLane[11];
 	public LongNoteLane[] longNoteLane = new LongNoteLane[8];
