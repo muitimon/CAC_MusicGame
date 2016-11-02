@@ -141,6 +141,7 @@ public class BodySourceView : MonoBehaviour
 			}
 		}
 
+		/*
 		// 通常の上下左右を認識させる処理
 		checkNormal("Right", controlRight);
 		checkNormal("Left", controlLeft);
@@ -151,6 +152,8 @@ public class BodySourceView : MonoBehaviour
 		setDir("Left", angleLeftHand);
 		setDir("Right", angleRightHand);
 		checkRoll();
+		*/
+
 
 		//angleLeftHand = angleLeftHand * 180 / Mathf.PI;
 	}
@@ -160,6 +163,7 @@ public class BodySourceView : MonoBehaviour
 		GameObject body = new GameObject("Body:" + id);
 		//body.GetComponent<Transform>().position.z = 3;
 		body.SetActive(active);
+		body.AddComponent<CheckGesture>();
 
 		for (Kinect.JointType jt = Kinect.JointType.SpineBase; jt <= Kinect.JointType.ThumbRight; jt++)
 		{
@@ -454,7 +458,7 @@ public class BodySourceView : MonoBehaviour
 		return previousAngleLeft + 4;
 	}
 
-	//ダミー
+	// 同じオブジェクトにあるGameSystem.cs内のGetInput関数を引数を入れて呼び出す。
 	private void sentMessage(int ans)
 	{
 		gameObject.SendMessage("GetInput", ans);
