@@ -34,13 +34,14 @@ public class LongNoteTiming{
 
 [Serializable]
 public class GameSystem : MonoBehaviour {
+    public static int score = 0;
 	public string loadJsonFileName;
 	public NoteLane[] noteLane = new NoteLane[11];
 	public LongNoteLane[] longNoteLane = new LongNoteLane[8];
     public int highSpeedLevel = 28;
-	public Vector3 startPoint;
+	public Vector3 startPoint;    public bool[] longFlags;
 
-	void LoadJson(string fileName){
+    void LoadJson(string fileName){
 		var textAsset =  Resources.Load ("kanki_Heaven_Hard") as TextAsset;
 		var jsonText = textAsset.text;
 		MusicSetting item = JsonUtility.FromJson<MusicSetting>(jsonText);
@@ -50,6 +51,7 @@ public class GameSystem : MonoBehaviour {
 		List<Timing>[] longNoteStartTimingList = new List<Timing>[item.maxBlock-3];
 		List<Timing>[] longNoteEndTimingList = new List<Timing>[item.maxBlock-3];
         List<float>[] longActiveTimeList = new List<float>[item.maxBlock - 3];
+        longFlags = new bool[item.maxBlock - 3];
 		for(int i = 0;i<timingList.Length;i++){
 			//リストのリストになっている
 			timingList [i] = new List<Timing> ();
@@ -102,6 +104,7 @@ public class GameSystem : MonoBehaviour {
             longNoteLane[i].longActiveTimes = longActiveTimeList[i].ToArray();
             longNoteLane[i].highSpeedLevel = highSpeedLevel;
 			longNoteLane [i].updateStartPoint = startPoint;
+            longNoteLane[i].longLaneNum = i;
         }
 	}
 
@@ -113,6 +116,7 @@ public class GameSystem : MonoBehaviour {
 	}
 
 	void Awake(){
+        score = 0;
 		LoadJson (loadJsonFileName);
 		for (int i = 0; i < noteLane.Length; i++) {
 			noteLane [i].enabled = true;
@@ -126,27 +130,57 @@ public class GameSystem : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.S)){
-			noteLane [4].hit ();
-			longNoteLane[4].hit(true);
-		}
+            if (noteLane[4].hit())
+            {
+                score = score + 10;
+            }
+			if(longNoteLane[4].hit(true))
+            {
+                score = score + 10;
+            }
+        }
 		if(Input.GetKeyDown(KeyCode.C)){
-			noteLane [5].hit ();
-			longNoteLane[5].hit(true);
-		}
+			if(noteLane [5].hit ())
+            {
+                score = score + 10;
+            }
+            if (longNoteLane[5].hit(true))
+            {
+                score = score + 10;
+            }
+        }
 		if(Input.GetKeyDown(KeyCode.Z)){
-			noteLane [6].hit ();
-			longNoteLane[6].hit(true);
-		}
+			if(noteLane [6].hit ())
+            {
+                score = score + 10;
+            }
+            if(longNoteLane[6].hit(true))
+            {
+                score = score + 10;
+            }
+        }
 		if(Input.GetKeyDown(KeyCode.X)){
-			noteLane [7].hit ();
-			longNoteLane[7].hit(true);
-		}
+			if(noteLane [7].hit ())
+            {
+                score = score + 10;
+            }
+            if(longNoteLane[7].hit(true))
+            {
+                score = score + 10;
+            }
+        }
 		if(Input.GetKeyDown(KeyCode.V)){
-			noteLane [9].hit ();
-		}
+			if(noteLane [9].hit ())
+            {
+                score = score + 10;
+            }
+        }
 		if(Input.GetKeyDown(KeyCode.Space)){
-			noteLane [10].hit ();
-		}
+			if(noteLane [10].hit ())
+            {
+                score = score + 10;
+            }
+        }
 	}
 
 

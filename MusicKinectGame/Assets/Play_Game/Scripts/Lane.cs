@@ -30,7 +30,7 @@ public class Lane : MonoBehaviour {
 		}
 		return num;
 	}
-	public int hit(){
+	public bool hit(){
 		if (activeNotes.Count > 0) {
 			int n = 1;
 			int i = 0;
@@ -42,14 +42,14 @@ public class Lane : MonoBehaviour {
 				i++;
 			}
 			if (n == 1) {
-				return 1;
+				return false;
 			}
             StartCoroutine ("hiteffect", n);
 			activeNotes [i].obj.SetActive (false);
 			activeNotes.RemoveAt (i);
-			return n;
+			return true;
 		}
-		return 1;
+		return false;
 
 	}
 
