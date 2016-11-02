@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:MusicKinectGame/Assets/Kouyamakun/Materials.meta
 guid: 5474cd9169a61448a9fd51bad6ee1565
 folderAsset: yes
 timeCreated: 1478011484
+=======
+guid: 82cb205985f094046a8d5781c6a70008
+folderAsset: yes
+timeCreated: 1477931518
+>>>>>>> master:MusicKinectGame/Assets/KinectView/Materials.meta
 licenseType: Free
 DefaultImporter:
   userData: 
