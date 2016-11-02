@@ -35,14 +35,14 @@ public class LongNoteTiming{
 [Serializable]
 public class GameSystem : MonoBehaviour {
     public int score = 0;
-	public string loadJsonFileName;
+	public string loadJsonFileName = "kanki_Heaven_Hard";
 	public NoteLane[] noteLane = new NoteLane[11];
 	public LongNoteLane[] longNoteLane = new LongNoteLane[8];
     public int highSpeedLevel = 28;
 	public Vector3 startPoint;    public bool[] longFlags;
 
     void LoadJson(string fileName){
-		var textAsset =  Resources.Load ("kanki_Heaven_Hard") as TextAsset;
+		var textAsset =  Resources.Load (fileName) as TextAsset;
 		var jsonText = textAsset.text;
 		MusicSetting item = JsonUtility.FromJson<MusicSetting>(jsonText);
 
@@ -114,8 +114,9 @@ public class GameSystem : MonoBehaviour {
 		int unit = n % 4;
 		return new Timing (bar, beat, unit);
 	}
-
+ 
 	void Awake(){
+        loadJsonFileName = "kanki_Heaven_Hard";
         score = 0;
 		LoadJson (loadJsonFileName);
 		for (int i = 0; i < noteLane.Length; i++) {
