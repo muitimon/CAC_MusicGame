@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;// 画面遷移用
 
 public class CheckGesture : MonoBehaviour {
 	float dx, dy;
@@ -36,6 +37,11 @@ public class CheckGesture : MonoBehaviour {
 	public int[] leftHandDirCount = new int[4];   //up, down, left, right
 	public int[] rightHandDirCount = new int[4];   //up, down, left, right
 
+	public string choiceSceneName = "";
+	public string ResultSceneName = "";
+	public string GameSceneName = "Game";
+	private GameObject Head;
+
 	public GameObject gamesystem;
 
 	// Use this for initialization
@@ -47,23 +53,52 @@ public class CheckGesture : MonoBehaviour {
 		controlLeft = gameObject.transform.FindChild(controlPoint + "Left").gameObject;
 		controlRight = gameObject.transform.FindChild(controlPoint + "Right").gameObject;
 		controlAxis = gameObject.transform.FindChild(controlAxisText).gameObject;
+		Head = gameObject.transform.FindChild("Head").gameObject;
 
-		gamesystem = GameObject.Find("GameSystem");
+		// シーン名によって、処理を変える
+		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(choiceSceneName))
+		{
+
+		}else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(ResultSceneName))
+		{
+
+		}
+		else {
+			gamesystem = GameObject.Find("GameSystem");
+		}
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		// 通常の上下左右を認識させる処理
-		checkNormal("Right", controlRight.transform.position);
-		checkNormal("Left", controlLeft.transform.position);
-		//print(xList.ToString() + ", " + yList.ToString());
+	void Update ()
+	{
+		// シーン名によって、処理を変える
+		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(choiceSceneName))
+		{
+			// 通常の上下左右を認識させる処理
+			checkNormal("Right", controlRight.transform.position);
+			checkNormal("Left", controlLeft.transform.position);
+			// 両手が上がったらゲーム画面へ遷移
+			if (controlRight.transform.position.y >= Head.transform.position.y && controlLeft.transform.position.y >= Head.transform.position.y) { 
+				SceneManager.LoadScene(GameSceneName);
+			}
+		}
+		else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(ResultSceneName))
+		{
+			
+		}
+		else {
+			// 通常の上下左右を認識させる処理と、ロングノーツを認識させる処理
+			checkNormal("Right", controlRight.transform.position);
+			checkNormal("Left", controlLeft.transform.position);
+			checkLong();
 
-		// 回転を認識させる処理
-		angleLeftHand = getRadian(WristLeft.transform.position, HandTipLeft.transform.position);
-		angleRightHand = getRadian(WristRight.transform.position, HandTipRight.transform.position);
-		setDir("Left", angleLeftHand);
-		setDir("Right", angleRightHand);
-		checkRoll();
+			// 回転を認識させる処理
+			angleLeftHand = getRadian(WristLeft.transform.position, HandTipLeft.transform.position);
+			angleRightHand = getRadian(WristRight.transform.position, HandTipRight.transform.position);
+			setDir("Left", angleLeftHand);
+			setDir("Right", angleRightHand);
+			checkRoll();
+		}
 	}
 
 	private void setDir(string RorL, float angle)
@@ -285,6 +320,15 @@ public class CheckGesture : MonoBehaviour {
 		}
 	}
 
+	private void checkLong()
+	{
+		// 配列取得
+		// forにより、全要素の値を参照
+		// trueだった添え字から、previousAngleRightもしくはpreviousAngleLeftの値と一致しているかを判定する
+	}
+	
+
+	/*
 	public int getPreviousRight()
 	{
 		return previousAngleRight;
@@ -293,6 +337,7 @@ public class CheckGesture : MonoBehaviour {
 	{
 		return previousAngleLeft + 4;
 	}
+	*/
 
 	// 同じオブジェクトにあるGameSystem.cs内のGetInput関数を引数を入れて呼び出す。
 	private void sentMessage(int ans)
