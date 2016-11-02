@@ -7,8 +7,10 @@ public class NoteLane : Lane {
 	public GameObject[] noteObjects = new GameObject[4];//ノーツオブジェクト
 	public Note[] notes = new Note[4];
 
-	void Start(){
-		startPoint    = updateStartPoint;
+	void Start()
+    {
+        //gameObject.GetComponent<ParticleSystem>().Stop();
+        startPoint    = updateStartPoint;
         offScreenPos = -10.0f;
 	}
 	// Update is called once per frame
