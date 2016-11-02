@@ -322,9 +322,64 @@ public class CheckGesture : MonoBehaviour {
 
 	private void checkLong()
 	{
-		// 配列取得
+		bool[] flag = gamesystem.GetComponent<GameSystem>().longFlags; // 配列取得
 		// forにより、全要素の値を参照
-		// trueだった添え字から、previousAngleRightもしくはpreviousAngleLeftの値と一致しているかを判定する
+		for(int i = 0; i < flag.Length; i++)
+		{
+			// trueだった添え字から、previousAngleRightもしくはpreviousAngleLeftの値と一致しているかを判定する
+			if (flag[i]) {
+			switch(i)
+				{
+					case 0:
+						if(previousAngleRight == UP) {
+							sentMessage(previousAngleRight);
+						}
+						break;
+					case 1:
+						if (previousAngleRight == RIGHT)
+						{
+							sentMessage(previousAngleRight);
+						}
+						break;
+					case 2:
+						if (previousAngleRight == LEFT)
+						{
+							sentMessage(previousAngleRight);
+						}
+						break;
+					case 3:
+						if (previousAngleRight == DOWN)
+						{
+							sentMessage(previousAngleRight);
+						}
+						break;
+					case 4:
+						if (previousAngleLeft == UP)
+						{
+							sentMessage(previousAngleLeft + 4);
+						}
+						break;
+					case 5:
+						if (previousAngleLeft == RIGHT)
+						{
+							sentMessage(previousAngleLeft + 4);
+						}
+						break;
+					case 6:
+						if (previousAngleLeft == LEFT)
+						{
+							sentMessage(previousAngleLeft + 4);
+						}
+						break;
+					case 7:
+						if (previousAngleLeft == DOWN)
+						{
+							sentMessage(previousAngleLeft + 4);
+						}
+						break;
+				}
+			}
+		}
 	}
 	
 
