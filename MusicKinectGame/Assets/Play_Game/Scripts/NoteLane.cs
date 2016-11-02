@@ -8,8 +8,8 @@ public class NoteLane : Lane {
 	public Note[] notes = new Note[4];
 
 	void Start(){
-		startPoint    = new Vector3 (0.0f,-27.0f,60.0f);
-        offScreenPos = 0.0f;
+		startPoint    = updateStartPoint;
+        offScreenPos = -10.0f;
 	}
 	// Update is called once per frame
 	void Update () {
@@ -30,7 +30,7 @@ public class NoteLane : Lane {
 		//アクティブノーツの移動処理
 		//画面外に出たノーツを消去処理
 		if(activeNotes.Count>0){
-			if(activeNotes[0].obj.transform.localPosition.y >= offScreenPos){
+			if(activeNotes[0].obj.transform.localPosition.z <= offScreenPos){
 				//Debug.Log (activeNotes.Count);
 				activeNotes [0].obj.SetActive (false);
 				activeNotes.RemoveAt (0);
