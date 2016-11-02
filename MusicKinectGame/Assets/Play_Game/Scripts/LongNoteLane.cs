@@ -2,7 +2,7 @@
     {
         gameSystem = GameObject.Find("GameSystem");
         gameSystemScript = gameSystem.GetComponent<GameSystem>();
-       // gameObject.GetComponent<ParticleSystem>().Stop();        startPoint = updateStartPoint;        offScreenPos = -10.0f;	}			public bool hit(bool isLong){		if (activeNotes.Count > 0) {			int n = 1;			int i = 0;			if(nowLong){				n = 0;				i++;			}			if (n == 1) {				return false;			}			StartCoroutine ("hiteffect", n);			return true;		}		return false;	}	private Timing preStartTiming = new Timing(0,0,0);	void Update(){		if (equalTiming (Music.Near, startTimings [nextTimingNum], -1*highSpeedLevel)) {			if (preStartTiming != startTimings [nextTimingNum]) {				NoteData tmp = new NoteData ();				tmp.obj = createNote (longNoteObjects [nextObjectNum]);				tmp.timing = startTimings [nextTimingNum];				tmp.startTime = Music.MusicalTimeFrom (startTimings [nextTimingNum]);
+       // gameObject.GetComponent<ParticleSystem>().Stop();        startPoint = updateStartPoint;        offScreenPos = 0.0f;	}			public bool hit(bool isLong){		if (activeNotes.Count > 0) {			int n = 1;			int i = 0;			if(nowLong){				n = 0;				i++;			}			if (n == 1) {				return false;			}			StartCoroutine ("hiteffect", n);			return true;		}		return false;	}	private Timing preStartTiming = new Timing(0,0,0);	void Update(){		if (equalTiming (Music.Near, startTimings [nextTimingNum], -1*highSpeedLevel)) {			if (preStartTiming != startTimings [nextTimingNum]) {				NoteData tmp = new NoteData ();				tmp.obj = createNote (longNoteObjects [nextObjectNum]);				tmp.timing = startTimings [nextTimingNum];				tmp.startTime = Music.MusicalTimeFrom (startTimings [nextTimingNum]);
                 //GetComponent<TrailRenderer>().time = Music.MusicalTimeFrom(endTimings[nextTimingNum]) - tmp.startTime;
                 longNoteObjects[nextObjectNum].GetComponent<TrailRenderer>().time = longActiveTimes[nextTimingNum];
                 /*Debug.Log(tmp.startTime);
@@ -20,15 +20,15 @@
             endLongNotes[nextObjectNum].startPoint = startPoint;
             nextObjectNum = manageObjNum(nextObjectNum, longNoteObjects.Length);
         }
-
-        if (Music.IsJustChangedAt(startTimings[nextTimingNum]))
-        {
-            gameSystemScript.longFlags[longLaneNum] = true;
-        }else if (Music.IsJustChangedAt(endTimings[nextTimingNum]))
-        {
-            gameSystemScript.longFlags[longLaneNum] = false;
+        if (!Music.IsJustChangedAt(new Timing(0,0,0))) {
+            if (Music.IsJustChangedAt(startTimings[nextTimingNum]))
+            {
+                gameSystemScript.longFlags[longLaneNum] = true;
+            } else if (Music.IsJustChangedAt(endTimings[nextTimingNum]))
+            {
+                gameSystemScript.longFlags[longLaneNum] = false;
+            }
         }
-        
         if (activeLongNotes.Count > 0) {			if (activeLongNotes [0].obj.transform.localPosition.z <= offScreenPos) {				if (activeNotes.Count > 0) {					activeNotes [0].obj.SetActive (false);					activeNotes.RemoveAt (0);				}				activeLongNotes [0].obj.SetActive (false);				activeLongNotes.RemoveAt (0);				nowLong = false;
                 nextTimingNum++;
             }		}	}}
