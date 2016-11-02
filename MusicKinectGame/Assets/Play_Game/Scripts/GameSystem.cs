@@ -2,6 +2,7 @@
 using System;//追加.
 using System.Collections;
 using System.Collections.Generic;//追加.
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class MusicSetting
@@ -33,13 +34,13 @@ public class LongNoteTiming{
 }
 
 [Serializable]
-public class GameSystem : MonoBehaviour {
-    public int score = 0;
-	public string loadJsonFileName = "kanki_Heaven_Hard";
+public class GameSystem : AllSystem {
 	public NoteLane[] noteLane = new NoteLane[11];
 	public LongNoteLane[] longNoteLane = new LongNoteLane[8];
     public int highSpeedLevel = 28;
 	public Vector3 startPoint;    public bool[] longFlags;
+
+    public Timing musicEndTiming = new Timing(3, 0, 0);
 
     void LoadJson(string fileName){
 		var textAsset =  Resources.Load (fileName) as TextAsset;
@@ -116,7 +117,8 @@ public class GameSystem : MonoBehaviour {
 	}
  
 	void Awake(){
-        loadJsonFileName = "kanki_Heaven_Hard";
+        //loadJsonFileName = "kanki_Heaven_Hard";
+        
         score = 0;
 		LoadJson (loadJsonFileName);
 		for (int i = 0; i < noteLane.Length; i++) {
@@ -125,8 +127,7 @@ public class GameSystem : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
-	}
+
 	
 	// Update is called once per frame
 	void Update () {
@@ -181,6 +182,13 @@ public class GameSystem : MonoBehaviour {
             {
                 score = score + 10;
             }
+        }
+
+        if (Music.IsJustChangedAt(musicEndTiming))
+        {
+
+
+            SceneManager.LoadScene(2);
         }
 	}
 
