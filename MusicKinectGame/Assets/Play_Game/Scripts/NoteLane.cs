@@ -8,7 +8,7 @@ public class NoteLane : Lane {
 	public Note[] notes = new Note[4];
 
 	void Start(){
-		startPoint    = new Vector3 (0.0f,-27.0f,60.0f);
+		startPoint    = updateStartPoint;
         offScreenPos = 0.0f;
 	}
 	// Update is called once per frame

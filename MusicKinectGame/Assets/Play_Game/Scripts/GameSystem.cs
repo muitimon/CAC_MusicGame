@@ -38,6 +38,7 @@ public class GameSystem : MonoBehaviour {
 	public NoteLane[] noteLane = new NoteLane[11];
 	public LongNoteLane[] longNoteLane = new LongNoteLane[8];
     public int highSpeedLevel = 28;
+	public Vector3 startPoint;
 
 	void LoadJson(string fileName){
 		var textAsset =  Resources.Load ("kanki_Heaven_Hard") as TextAsset;
@@ -90,6 +91,7 @@ public class GameSystem : MonoBehaviour {
 			timingList [i].Add (new Timing (0, 0, 0));
 			noteLane [i].timings = timingList [i].ToArray ();//timingListをリストから配列に変換し、各レーンのタイミングデータにする.
             noteLane[i].highSpeedLevel = highSpeedLevel;
+			noteLane [i].updateStartPoint = startPoint;
         }
 
 		for (int i = 0; i < longNoteLane.Length; i++) {
@@ -99,6 +101,7 @@ public class GameSystem : MonoBehaviour {
 			longNoteLane [i].endTimings = longNoteEndTimingList [i].ToArray ();
             longNoteLane[i].longActiveTimes = longActiveTimeList[i].ToArray();
             longNoteLane[i].highSpeedLevel = highSpeedLevel;
+			longNoteLane [i].updateStartPoint = startPoint;
         }
 	}
 
