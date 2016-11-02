@@ -69,13 +69,13 @@ public class GameSystem : MonoBehaviour {
 		foreach (NoteInformation note in item.notes) {
 			int type = note.type;
 			if(type == 1){
-					Timing tmp = LoadTiming (note.num+32);
+					Timing tmp = LoadTiming (note.num+64);
 					timingList [note.block].Add (tmp);
 			}else if(type == 2){
 				foreach (NoteInformation longNote in note.notes) {
 					LongNoteTiming tmp = new LongNoteTiming();
-					tmp.startTiming = LoadTiming (note.num+32);
-					tmp.endTiming = LoadTiming (longNote.num+32);
+					tmp.startTiming = LoadTiming (note.num+64);
+					tmp.endTiming = LoadTiming (longNote.num+64);
                  
 					longNoteStartTimingList [note.block].Add (tmp.startTiming);
 					longNoteEndTimingList [note.block].Add (tmp.endTiming);

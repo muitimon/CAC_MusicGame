@@ -5,11 +5,16 @@ using System.Collections.Generic;
 public class NoteLane : Lane {
 	public Timing[] timings;
 	public GameObject[] noteObjects = new GameObject[4];//ノーツオブジェクト
-	public Note[] notes = new Note[4];
+	public Note[] notes;
 
 	void Start()
     {
         //gameObject.GetComponent<ParticleSystem>().Stop();
+        notes = new Note[noteObjects.Length];
+        for (int i=0;i<notes.Length;i++)
+        {
+            notes[i] = noteObjects[i].GetComponent<Note>();
+        }
         startPoint    = updateStartPoint;
         offScreenPos = -10.0f;
 	}
