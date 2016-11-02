@@ -34,6 +34,7 @@ public class LongNoteTiming{
 
 [Serializable]
 public class GameSystem : MonoBehaviour {
+    public int score = 0;
 	public string loadJsonFileName;
 	public NoteLane[] noteLane = new NoteLane[11];
 	public LongNoteLane[] longNoteLane = new LongNoteLane[8];
@@ -113,6 +114,7 @@ public class GameSystem : MonoBehaviour {
 	}
 
 	void Awake(){
+        score = 0;
 		LoadJson (loadJsonFileName);
 		for (int i = 0; i < noteLane.Length; i++) {
 			noteLane [i].enabled = true;
@@ -126,27 +128,57 @@ public class GameSystem : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.S)){
-			noteLane [4].hit ();
-			longNoteLane[4].hit(true);
-		}
+            if (noteLane[4].hit())
+            {
+                score = score + 10;
+            }
+			if(longNoteLane[4].hit(true))
+            {
+                score = score + 10;
+            }
+        }
 		if(Input.GetKeyDown(KeyCode.C)){
-			noteLane [5].hit ();
-			longNoteLane[5].hit(true);
-		}
+			if(noteLane [5].hit ())
+            {
+                score = score + 10;
+            }
+            if (longNoteLane[5].hit(true))
+            {
+                score = score + 10;
+            }
+        }
 		if(Input.GetKeyDown(KeyCode.Z)){
-			noteLane [6].hit ();
-			longNoteLane[6].hit(true);
-		}
+			if(noteLane [6].hit ())
+            {
+                score = score + 10;
+            }
+            if(longNoteLane[6].hit(true))
+            {
+                score = score + 10;
+            }
+        }
 		if(Input.GetKeyDown(KeyCode.X)){
-			noteLane [7].hit ();
-			longNoteLane[7].hit(true);
-		}
+			if(noteLane [7].hit ())
+            {
+                score = score + 10;
+            }
+            if(longNoteLane[7].hit(true))
+            {
+                score = score + 10;
+            }
+        }
 		if(Input.GetKeyDown(KeyCode.V)){
-			noteLane [9].hit ();
-		}
+			if(noteLane [9].hit ())
+            {
+                score = score + 10;
+            }
+        }
 		if(Input.GetKeyDown(KeyCode.Space)){
-			noteLane [10].hit ();
-		}
+			if(noteLane [10].hit ())
+            {
+                score = score + 10;
+            }
+        }
 	}
 
 
