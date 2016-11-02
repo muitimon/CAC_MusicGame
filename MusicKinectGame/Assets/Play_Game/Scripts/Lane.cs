@@ -44,7 +44,7 @@ public class Lane : MonoBehaviour {
 			if (n == 1) {
 				return 1;
 			}
-			StartCoroutine ("hiteffect", n);
+            StartCoroutine ("hiteffect", n);
 			activeNotes [i].obj.SetActive (false);
 			activeNotes.RemoveAt (i);
 			return n;
@@ -55,7 +55,13 @@ public class Lane : MonoBehaviour {
 
 
 	IEnumerator hiteffect(int rank){
-		GameObject obj = createRank(ranks [rank]);
+        gameObject.GetComponent<ParticleSystem>().Play();
+        for (float f = 0.3f; f < 1.0f; f += 0.05f)
+        {
+            yield return null;
+        }
+        gameObject.GetComponent<ParticleSystem>().Stop();
+        /*GameObject obj = createRank(ranks [rank]);
 		obj.transform.localPosition = new Vector2 (-8.0f, 0.0f);
 		for (float f = 0.3f; f < 1.0f; f += 0.05f) {
 			obj.transform.localScale = new Vector2 (f,f);
@@ -64,8 +70,8 @@ public class Lane : MonoBehaviour {
 			obj.GetComponent<SpriteRenderer> ().color = c;
 			yield return null;
 		}
-		obj.SetActive (false);
-	}
+		obj.SetActive (false);*/
+    }
 
 	protected int getGrade(Timing item){
 		float time = Music.MusicalTimeFrom (item);
