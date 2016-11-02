@@ -40,7 +40,7 @@ public class GameSystem : AllSystem {
     public int highSpeedLevel = 28;
 	public Vector3 startPoint;    public bool[] longFlags;
 
-    public Timing musicEndTiming = new Timing(3, 0, 0);
+    public Timing musicEndTiming = new Timing(73, 0, 0);
 
     void LoadJson(string fileName){
 		var textAsset =  Resources.Load (fileName) as TextAsset;
@@ -70,13 +70,13 @@ public class GameSystem : AllSystem {
 		foreach (NoteInformation note in item.notes) {
 			int type = note.type;
 			if(type == 1){
-					Timing tmp = LoadTiming (note.num+64);
+					Timing tmp = LoadTiming (note.num+highSpeedLevel+4);
 					timingList [note.block].Add (tmp);
 			}else if(type == 2){
 				foreach (NoteInformation longNote in note.notes) {
 					LongNoteTiming tmp = new LongNoteTiming();
-					tmp.startTiming = LoadTiming (note.num+64);
-					tmp.endTiming = LoadTiming (longNote.num+64);
+					tmp.startTiming = LoadTiming (note.num+highSpeedLevel+4);
+					tmp.endTiming = LoadTiming (longNote.num+highSpeedLevel+4);
                  
 					longNoteStartTimingList [note.block].Add (tmp.startTiming);
 					longNoteEndTimingList [note.block].Add (tmp.endTiming);
@@ -117,7 +117,7 @@ public class GameSystem : AllSystem {
 	}
  
 	void Awake(){
-        //loadJsonFileName = "kanki_Heaven_Hard";
+        loadJsonFileName = "kanki_Heaven_Hard";
         
         score = 0;
 		LoadJson (loadJsonFileName);
@@ -131,6 +131,7 @@ public class GameSystem : AllSystem {
 	
 	// Update is called once per frame
 	void Update () {
+       // Debug.Log(score);
 		if(Input.GetKeyDown(KeyCode.S)){
             if (noteLane[4].hit())
             {
@@ -197,31 +198,28 @@ public class GameSystem : AllSystem {
 	{
 		if (n == 4)
 		{
-			noteLane[4].hit();
-			longNoteLane[4].hit(true);
+            if (noteLane[4].hit()|| longNoteLane[4].hit(true)){ score = score + 10;}
+			
 		}
 		if (n == 7)
 		{
-			noteLane[5].hit();
-			longNoteLane[5].hit(true);
+            if (noteLane[5].hit() || longNoteLane[5].hit(true)) { longNoteLane[4].hit(true); }
 		}
 		if (n == 6)
 		{
-			noteLane[6].hit();
-			longNoteLane[6].hit(true);
+            if (noteLane[6].hit() || longNoteLane[6].hit(true)) { longNoteLane[4].hit(true); }
 		}
 		if (n == 5)
 		{
-			noteLane[7].hit();
-			longNoteLane[7].hit(true);
+            if (noteLane[7].hit() || longNoteLane[7].hit(true)) { longNoteLane[4].hit(true); }
 		}
 		if (n == 9)
 		{
-			noteLane[10].hit();
+            if (noteLane[10].hit()) { longNoteLane[4].hit(true); }
 		}
 		if (n == 10)
 		{
-			noteLane[8].hit();
+            if (noteLane[8].hit()) { longNoteLane[4].hit(true); }
 		}
 	}
 }

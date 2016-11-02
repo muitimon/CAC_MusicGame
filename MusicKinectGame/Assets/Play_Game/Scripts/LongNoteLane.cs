@@ -5,7 +5,7 @@
         {
             startLongNotes[i] = longNoteObjects[i].GetComponent<LongStartNote>();
             endLongNotes[i] = endNoteObjects[i].GetComponent<Note>();
-        }        startPoint = updateStartPoint;        offScreenPos = 0.0f;	}			public bool hit(bool isLong){		if (activeNotes.Count > 0) {			int n = 1;			int i = 0;			if(nowLong){				n = 0;				i++;			}			if (n == 1) {				return false;			}			StartCoroutine ("hiteffect", n);			return true;		}		return false;	}	public Timing preStartTiming = new Timing(0,0,0);	void Update(){        Debug.Log(preStartTiming);
+        }        startPoint = updateStartPoint;        offScreenPos = 0.0f;	}			public bool hit(bool isLong){		if (activeNotes.Count > 0) {			int n = 1;			int i = 0;			if(nowLong){				n = 0;				i++;			}			if (n == 1) {				return false;			}			StartCoroutine ("hiteffect", n);			return true;		}		return false;	}	public Timing preStartTiming = new Timing(0,0,0);	void Update(){       // Debug.Log(preStartTiming);
         if (equalTiming(Music.Near, startTimings[nextTimingNum], -1 * highSpeedLevel)) {
             if (preStartTiming != startTimings[nextTimingNum])
             {
