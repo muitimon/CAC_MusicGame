@@ -19,16 +19,17 @@
             endLongNotes[nextObjectNum].note = tmp;
             endLongNotes[nextObjectNum].startPoint = startPoint;
             nextObjectNum = manageObjNum(nextObjectNum, longNoteObjects.Length);
+
         }
-        if (!Music.IsJustChangedAt(new Timing(0,0,0))) {
+       if (!Music.IsJustChangedAt(new Timing(0,0,0))) {
             if (Music.IsJustChangedAt(startTimings[nextTimingNum]))
             {
                 gameSystemScript.longFlags[longLaneNum] = true;
             } else if (Music.IsJustChangedAt(endTimings[nextTimingNum]))
             {
                 gameSystemScript.longFlags[longLaneNum] = false;
+                nextTimingNum++;
             }
         }
         if (activeLongNotes.Count > 0) {			if (activeLongNotes [0].obj.transform.localPosition.z <= offScreenPos) {				if (activeNotes.Count > 0) {					activeNotes [0].obj.SetActive (false);					activeNotes.RemoveAt (0);				}				activeLongNotes [0].obj.SetActive (false);				activeLongNotes.RemoveAt (0);				nowLong = false;
-                nextTimingNum++;
             }		}	}}

@@ -14,7 +14,7 @@ public class Lane : MonoBehaviour {
     protected int     nextTimingNum = 0;
 	protected int     nextObjectNum = 0;
 	public    float   offScreenPos  = -10.0f;
-	public 	  GameObject[] 	 ranks       = new GameObject[2];
+	//public 	  GameObject[] 	 ranks       = new GameObject[2];
 	protected List<NoteData> activeNotes = new List<NoteData> ();
     public int highSpeedLevel;
 
