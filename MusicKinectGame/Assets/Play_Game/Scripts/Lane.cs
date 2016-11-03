@@ -56,11 +56,13 @@ public class Lane : MonoBehaviour {
 
 	IEnumerator hiteffect(int rank){
         gameObject.GetComponent<ParticleSystem>().Play();
+        gameObject.GetComponent<AudioSource>().Play();
         for (float f = 0.3f; f < 1.0f; f += 0.05f)
         {
             yield return null;
         }
         gameObject.GetComponent<ParticleSystem>().Stop();
+        gameObject.GetComponent<AudioSource>().Stop();
         /*GameObject obj = createRank(ranks [rank]);
 		obj.transform.localPosition = new Vector2 (-8.0f, 0.0f);
 		for (float f = 0.3f; f < 1.0f; f += 0.05f) {
