@@ -39,6 +39,7 @@ public class GameSystem : AllSystem {
 	public LongNoteLane[] longNoteLane = new LongNoteLane[8];
     public int highSpeedLevel = 28;
 	public Vector3 startPoint;    public bool[] longFlags;
+    public GameObject scoreText;
 
     public Timing musicEndTiming = new Timing(73, 0, 0);
 
@@ -117,13 +118,13 @@ public class GameSystem : AllSystem {
 	}
  
 	void Awake(){
-        loadJsonFileName = "kanki_Heaven_Hard";
+        //loadJsonFileName = "kanki_Heaven_Hard";
         
         score = 0;
 		LoadJson (loadJsonFileName);
-		for (int i = 0; i < noteLane.Length; i++) {
+		/*for (int i = 0; i < noteLane.Length; i++) {
 			noteLane [i].enabled = true;
-		}
+		}*/
 	}
 
 	// Use this for initialization
@@ -187,39 +188,72 @@ public class GameSystem : AllSystem {
 
         if (Music.IsJustChangedAt(musicEndTiming))
         {
-
+            scores.Add(score);
+            scores.Sort();
 
             SceneManager.LoadScene(2);
         }
+        scoreText.GetComponent<TextMesh>().text = score.ToString();
 	}
 
 
 	public void GetInput(int n)
-	{
-		if (n == 4)
+    {
+        if (n == 0)
+        {
+            if (noteLane[0].hit()) { score = score + 10; }
+            if (longNoteLane[0].hit(true)) { score = score + 3; }
+
+        }
+        if (n == 3)
+        {
+            if (noteLane[1].hit()) { score = score + 10; }
+            if (longNoteLane[1].hit(true)) { score = score + 3; }
+        }
+        if (n == 2)
+        {
+            if (noteLane[2].hit()) { score = score + 10; }
+            if (longNoteLane[2].hit(true)) { score = score + 3; }
+        }
+        if (n == 1)
+        {
+            if (noteLane[3].hit() ) { score = score + 10; }
+            if (longNoteLane[3].hit(true)) { score = score + 3; }
+        }
+        if (n == 4)
+        {
+            if (noteLane[4].hit()) { score = score + 10; }
+            if (longNoteLane[4].hit(true)) { score = score + 3; }
+
+        }
+        if (n == 7)
+        {
+            if (noteLane[5].hit()) { score = score + 10; }
+            if (longNoteLane[5].hit(true)) { score = score + 3;}
+        }
+        if (n == 6)
+        {
+            if (noteLane[6].hit() ) { score = score + 10; }
+            if (longNoteLane[6].hit(true)) { score = score + 3; }
+        }
+        if (n == 5)
+        {
+            if (noteLane[7].hit()) { score = score + 10; }
+            if (longNoteLane[7].hit(true)) { score = score + 3; }
+        }
+        if (n == 9)
 		{
-            if (noteLane[4].hit()|| longNoteLane[4].hit(true)){ score = score + 10;}
-			
-		}
-		if (n == 7)
-		{
-            if (noteLane[5].hit() || longNoteLane[5].hit(true)) { longNoteLane[4].hit(true); }
-		}
-		if (n == 6)
-		{
-            if (noteLane[6].hit() || longNoteLane[6].hit(true)) { longNoteLane[4].hit(true); }
-		}
-		if (n == 5)
-		{
-            if (noteLane[7].hit() || longNoteLane[7].hit(true)) { longNoteLane[4].hit(true); }
-		}
-		if (n == 9)
-		{
-            if (noteLane[10].hit()) { longNoteLane[4].hit(true); }
-		}
-		if (n == 10)
-		{
-            if (noteLane[8].hit()) { longNoteLane[4].hit(true); }
-		}
-	}
+            if (noteLane[10].hit()) { score = score + 1000; }
+        }
+        if (n == 8)
+        {
+            if (noteLane[9].hit()) { score = score + 1000; }
+        }
+
+        // ジャンプ
+        if (n == 10)
+        {
+            if (noteLane[8].hit()) { score = score + 10000; }
+        }
+    }
 }

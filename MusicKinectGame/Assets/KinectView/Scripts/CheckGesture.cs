@@ -37,9 +37,9 @@ public class CheckGesture : MonoBehaviour {
 	public int[] leftHandDirCount = new int[4];   //up, down, left, right
 	public int[] rightHandDirCount = new int[4];   //up, down, left, right
 
-	public string choiceSceneName = "";
-	public string ResultSceneName = "";
-	public string GameSceneName = "Game";
+	public string choiceSceneName = "Select_Level_ScriptTest";
+	public string ResultSceneName = "Result_ScriptTest";
+	public string GameSceneName = "Make_Object";
 	private GameObject Head;
 
 	public GameObject gamesystem;
@@ -58,8 +58,9 @@ public class CheckGesture : MonoBehaviour {
 		// シーン名によって、処理を変える
 		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(choiceSceneName))
 		{
-
-		}else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(ResultSceneName))
+            gamesystem = GameObject.Find("GameSystem");
+        }
+        else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(ResultSceneName))
 		{
 
 		}
@@ -259,7 +260,7 @@ public class CheckGesture : MonoBehaviour {
 					xListL.Clear();
 					yListL.Clear();
 				}
-				print(RorL + " →");
+				//print(RorL + " →");
 				direction = RIGHT;
 			}
 			else if (dx < -threshold)
@@ -274,7 +275,7 @@ public class CheckGesture : MonoBehaviour {
 					xListL.Clear();
 					yListL.Clear();
 				}
-				print(RorL + " ←");
+				//print(RorL + " ←");
 				direction = LEFT;
 			}
 			else if (dy > threshold)
@@ -289,7 +290,7 @@ public class CheckGesture : MonoBehaviour {
 					xListL.Clear();
 					yListL.Clear();
 				}
-				print(RorL + " ↑");
+				//print(RorL + " ↑");
 				direction = UP;
 			}
 			else if (dy < -threshold)
@@ -304,7 +305,7 @@ public class CheckGesture : MonoBehaviour {
 					xListL.Clear();
 					yListL.Clear();
 				}
-				print(RorL + " ↓");
+				//print(RorL + " ↓");
 				direction = DOWN;
 			}
 
@@ -397,8 +398,30 @@ public class CheckGesture : MonoBehaviour {
 	// 同じオブジェクトにあるGameSystem.cs内のGetInput関数を引数を入れて呼び出す。
 	private void sentMessage(int ans)
 	{
-		//gameObject.SendMessage("GetInput", ans);
-		gamesystem.GetComponent<GameSystem>().GetInput(ans);
+        // シーン名によって、処理を変える
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(choiceSceneName))
+        {
+            if(ans >= 4)
+            {
+                ans -= 4; 
+            }
+            if (ans == RIGHT)
+            {
+                gamesystem.GetComponent<SelectLevelSystem>().SetloadJsonFileName("kanki_Heaven_Hard");
+            }else if(ans == LEFT)
+            {
+                gamesystem.GetComponent<SelectLevelSystem>().SetloadJsonFileName("kanki_Heaven_Easy");
+            }
+        }
+        else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(ResultSceneName))
+        {
+
+        }
+        else
+        {
+            gamesystem.GetComponent<GameSystem>().GetInput(ans);
+        }
+        
 	}
 
 	protected float getRadian(Vector3 pos1, Vector3 pos2)

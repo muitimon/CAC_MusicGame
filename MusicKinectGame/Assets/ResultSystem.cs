@@ -8,14 +8,17 @@ public class ResultSystem : AllSystem {
 	// Use this for initialization
 	void Start () {
         text.GetComponent<TextMesh>().text = score.ToString();
-        scores.Add(score);
-        scores.Sort();
+
         string temp = "";
-        for (int i =0; i<scores.Count;i++)
+        for (int i =scores.Count-1; i>=0;i--)
         {
             temp = temp + scores[i] + "\n"; 
         }
         scoresText.GetComponent<TextMesh>().text = temp;
+        if (scores.Count>=5)
+        {
+            scores.Remove(0);
+        }
 	}
 	
 	// Update is called once per frame

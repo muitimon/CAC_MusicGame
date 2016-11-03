@@ -52,8 +52,8 @@ public class GestureDetector : IDisposable
     public event EventHandler<GestureEventArgs> OnGestureDetected;
 
 	private GameObject gamesystem;
-	public string choiceSceneName = "";
-	public string ResultSceneName = "";
+	public string choiceSceneName = "Select_Level_ScriptTest";
+	public string ResultSceneName = "Result_ScriptTest";
 
 	/// <summary>
 	/// Initializes a new instance of the GestureDetector class along with the gesture frame source and reader
@@ -312,7 +312,7 @@ public class GestureDetector : IDisposable
 				else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(ResultSceneName))
 				{
 					// 難易度選択画面へ遷移
-					SceneManager.LoadScene(choiceSceneName);
+					//SceneManager.LoadScene(choiceSceneName);
 				}
 				else
 				{
