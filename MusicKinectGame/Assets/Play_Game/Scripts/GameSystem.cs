@@ -3,6 +3,7 @@ using System;//追加.
 using System.Collections;
 using System.Collections.Generic;//追加.
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [Serializable]
 public class MusicSetting
@@ -39,8 +40,8 @@ public class GameSystem : AllSystem {
 	public LongNoteLane[] longNoteLane = new LongNoteLane[8];
     public int highSpeedLevel = 28;
 	public Vector3 startPoint;    public bool[] longFlags;
-    public GameObject scoreText;
     public GameObject heaven;
+    public GameObject scoretext;
 
     public Timing musicEndTiming = new Timing(73, 0, 0);
 
@@ -138,6 +139,7 @@ public class GameSystem : AllSystem {
         {
             if (noteLane[0].hit())
             {
+                Debug.Log("R_UP");
                 score = score + 10;
             }
             if (longNoteLane[0].hit(true))
@@ -149,6 +151,7 @@ public class GameSystem : AllSystem {
         {
             if (noteLane[1].hit())
             {
+                Debug.Log("R_RIGHT");
                 score = score + 10;
             }
             if (longNoteLane[1].hit(true))
@@ -220,15 +223,22 @@ public class GameSystem : AllSystem {
             }
         }
 		if(Input.GetKeyDown(KeyCode.V)){
-			if(noteLane [9].hit ())
+			if(noteLane [10].hit ())
             {
                 score = score + 1000;
             }
         }
-		if(Input.GetKeyDown(KeyCode.Space)){
-			if(noteLane [10].hit ())
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (noteLane[9].hit())
             {
                 score = score + 1000;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Space)){
+			if(noteLane [8].hit ())
+            {
+                score = score + 10000;
             }
         }
 
@@ -245,7 +255,7 @@ public class GameSystem : AllSystem {
             heaven.SetActive(true);
             }
         }
-        scoreText.GetComponent<TextMesh>().text = score.ToString();
+        scoretext.GetComponent<Text>().text = score.ToString();
 	}
 
 
@@ -305,7 +315,8 @@ public class GameSystem : AllSystem {
         // ジャンプ
         if (n == 10)
         {
-            if (noteLane[8].hit()) { score = score + 10000; }
+            Debug.Log("jumptime");
+            if (noteLane[8].hit()) { score = score + 5000; }
         }
     }
 }

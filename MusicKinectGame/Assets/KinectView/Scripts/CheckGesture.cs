@@ -85,8 +85,8 @@ public class CheckGesture : MonoBehaviour {
 		}
 		else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(ResultSceneName))
 		{
-			// 両手が上がったら難易度選択画面へ遷移
-			if (controlRight.transform.position.y >= Head.transform.position.y && controlLeft.transform.position.y >= Head.transform.position.y) { 
+			// 左手が上がったら難易度選択画面へ遷移
+			if (controlLeft.transform.position.y >= Head.transform.position.y) { 
 				SceneManager.LoadScene(choiceSceneName);
 			}
 		}
@@ -180,7 +180,7 @@ public class CheckGesture : MonoBehaviour {
 
 		if (leftFlag == true)
 		{
-			print("LEFT ROLLING!");
+			//print("LEFT ROLLING!");
 			sentMessage(9);
 			for (int i = 0; i < 4; i++)
 			{
@@ -190,7 +190,7 @@ public class CheckGesture : MonoBehaviour {
 		}
 		if (rightFlag == true)
 		{
-			print("RIGHT ROLLING!");
+			//print("RIGHT ROLLING!");
 			sentMessage(8);
 			for (int i = 0; i < 4; i++)
 			{
@@ -408,9 +408,11 @@ public class CheckGesture : MonoBehaviour {
             if (ans == RIGHT + 4)
             {
                 gamesystem.GetComponent<SelectLevelSystem>().SetloadJsonFileName("kanki_Heaven_Hard");
+                Debug.Log("hard");
             }else if(ans == LEFT + 4)
             {
                 gamesystem.GetComponent<SelectLevelSystem>().SetloadJsonFileName("kanki_Heaven_Easy");
+                Debug.Log("easy");
             }
         }
         else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(ResultSceneName))

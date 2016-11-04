@@ -5,7 +5,8 @@
         {
             startLongNotes[i] = longNoteObjects[i].GetComponent<LongStartNote>();
             endLongNotes[i] = endNoteObjects[i].GetComponent<Note>();
-        }        startPoint = updateStartPoint;        offScreenPos = 0.0f;	}			public bool hit(bool isLong){		if (activeNotes.Count > 0) {			int n = 1;			int i = 0;			if(nowLong){				n = 0;				i++;			}			if (n == 1) {				return false;			}			StartCoroutine ("hiteffect", n);			return true;		}		return false;	}	public Timing preStartTiming = new Timing(0,0,0);	void Update(){       // Debug.Log(preStartTiming);
+        }        startPoint = updateStartPoint;        offScreenPos = 0.0f;	}			public bool hit(bool isLong){		if (activeNotes.Count > 0) {			int n = 1;			int i = 0;			if(gameSystemScript.longFlags[longLaneNum])
+            {				n = 0;				i++;			}			if (n == 1) {				return false;			}			StartCoroutine ("hiteffect", n);			return true;		}		return false;	}	public Timing preStartTiming = new Timing(0,0,0);	void Update(){       // Debug.Log(preStartTiming);
         if (equalTiming(Music.Near, startTimings[nextTimingNum], -1 * highSpeedLevel)) {
             if (preStartTiming != startTimings[nextTimingNum])
             {
@@ -36,20 +37,29 @@
             nextTimingNum++;
 
         }
-        if (!Music.IsJustChangedAt(new Timing(0, 0, 0)))
+        if (activeLongNotes.Count > 0)
         {
-
-            // if (startTimings[0].Bar!=0&& startTimings[0].Beat != 0&& startTimings[0].Unit != 0) {
-            if (Music.IsJustChangedAt(startTimings[longFlagNextTimingNum]))
+            if (activeLongNotes[0].obj.transform.localPosition.z <= offScreenPos)
             {
-                gameSystemScript.longFlags[longLaneNum] = true;
-            }
-        }/* else if (Music.IsJustChangedAt(endTimings[longFlagNextTimingNum]))
-            {
-            }*/
-       // }
-        if (activeLongNotes.Count > 0) {			if (activeLongNotes [0].obj.transform.localPosition.z <= offScreenPos) {				if (activeNotes.Count > 0) {					activeNotes [0].obj.SetActive (false);					activeNotes.RemoveAt (0);				}				activeLongNotes [0].obj.SetActive (false);				activeLongNotes.RemoveAt (0);				nowLong = false;
+                if (activeNotes.Count > 0)
+                {
+                    activeNotes[0].obj.SetActive(false);
+                    activeNotes.RemoveAt(0);
+                }
+                activeLongNotes[0].obj.SetActive(false);
+                activeLongNotes.RemoveAt(0);
+                nowLong = false;
                 gameSystemScript.longFlags[longLaneNum] = nowLong;
 
                 longFlagNextTimingNum++;
-            }		}	}}
+            }
+        }
+        if (!Music.IsJustChangedAt(new Timing(0, 0, 0)))
+        {
+            if (Music.IsJustChangedAt(startTimings[longFlagNextTimingNum]))
+            {
+                Debug.Log("nowLong!");
+                Debug.Log("longLaneNum :"+longLaneNum);
+                gameSystemScript.longFlags[longLaneNum] = true;
+            }
+        }	}}

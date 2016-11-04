@@ -316,10 +316,10 @@ public class GestureDetector : IDisposable
 				}
 				else
 				{
-					gamesystem.GetComponent<GameSystem>().GetInput(8);
+					gamesystem.GetComponent<GameSystem>().GetInput(10);
 				}
 
-				Debug.Log("J U M P ! !");
+				//Debug.Log("J U M P ! !");
             }
         }
         else if (isAction == true)
@@ -335,7 +335,7 @@ public class GestureDetector : IDisposable
             if (isAction == false)
             {
                 isAction = true;
-                Debug.Log("R O L L I N G ! !");
+                //Debug.Log("R O L L I N G ! !");
             }
         }
         else if (isAction == true)
