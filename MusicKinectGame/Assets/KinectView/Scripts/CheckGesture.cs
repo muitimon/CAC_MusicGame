@@ -76,19 +76,16 @@ public class CheckGesture : MonoBehaviour {
 		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(choiceSceneName))
 		{
 			// 通常の上下左右を認識させる処理
-			//checkNormal("Right", controlRight.transform.position);
+			checkNormal("Right", controlRight.transform.position);
 			checkNormal("Left", controlLeft.transform.position);
-			// 右手が上がったらゲーム画面へ遷移
-			if (controlRight.transform.position.y >= Head.transform.position.y) { 
+			// 両手が上がったらゲーム画面へ遷移
+			if (controlRight.transform.position.y >= Head.transform.position.y && controlLeft.transform.position.y >= Head.transform.position.y) { 
 				SceneManager.LoadScene(GameSceneName);
 			}
 		}
 		else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(ResultSceneName))
 		{
-			// 両手が上がったら難易度選択画面へ遷移
-			if (controlRight.transform.position.y >= Head.transform.position.y && controlLeft.transform.position.y >= Head.transform.position.y) { 
-				SceneManager.LoadScene(choiceSceneName);
-			}
+			
 		}
 		else {
 			// 通常の上下左右を認識させる処理と、ロングノーツを認識させる処理
@@ -404,11 +401,14 @@ public class CheckGesture : MonoBehaviour {
         // シーン名によって、処理を変える
         if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(choiceSceneName))
         {
-	    // 左手で難易度選択
-            if (ans == RIGHT + 4)
+            if(ans >= 4)
+            {
+                ans -= 4; 
+            }
+            if (ans == RIGHT)
             {
                 gamesystem.GetComponent<SelectLevelSystem>().SetloadJsonFileName("kanki_Heaven_Hard");
-            }else if(ans == LEFT + 4)
+            }else if(ans == LEFT)
             {
                 gamesystem.GetComponent<SelectLevelSystem>().SetloadJsonFileName("kanki_Heaven_Easy");
             }
