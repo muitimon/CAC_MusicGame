@@ -25,7 +25,7 @@ public class SelectLevelSystem : AllSystem
 
         if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Period))
         {
-            Debug.Log("Z");
+          //  Debug.Log("Z");
             loadJsonFileName = "kanki_Heaven_Easy";
         }
         if (loadJsonFileName.Equals("kanki_Heaven_Hard"))

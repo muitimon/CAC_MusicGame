@@ -139,7 +139,7 @@ public class GameSystem : AllSystem {
         {
             if (noteLane[0].hit())
             {
-                Debug.Log("R_UP");
+               // Debug.Log("R_UP");
                 score = score + 10;
             }
             if (longNoteLane[0].hit(true))
@@ -151,7 +151,7 @@ public class GameSystem : AllSystem {
         {
             if (noteLane[1].hit())
             {
-                Debug.Log("R_RIGHT");
+              //  Debug.Log("R_RIGHT");
                 score = score + 10;
             }
             if (longNoteLane[1].hit(true))

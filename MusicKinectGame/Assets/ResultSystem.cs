@@ -1,23 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ResultSystem : AllSystem {
-    public GameObject text;
+   // public GameObject text;
     public GameObject scoresText;
+    public GameObject scoreText;
 	// Use this for initialization
 	void Start () {
-        text.GetComponent<TextMesh>().text = score.ToString();
+        scoreText.GetComponent<Text>().text = score.ToString();
 
         string temp = "";
         for (int i =scores.Count-1; i>=0;i--)
         {
-            temp = temp + scores[i] + "\n"; 
+            int j = i + 1;
+            temp = j + "位 " + scores[i] + "\n" + temp;
         }
-        scoresText.GetComponent<TextMesh>().text = temp;
+        scoresText.GetComponent<Text>().text = temp;
         if (scores.Count>=5)
         {
-            scores.Remove(0);
+           // Debug.Log("remove");
+            scores.RemoveAt(0);
         }
 	}
 	

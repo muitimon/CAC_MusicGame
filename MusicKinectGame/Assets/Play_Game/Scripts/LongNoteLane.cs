@@ -6,7 +6,19 @@
             startLongNotes[i] = longNoteObjects[i].GetComponent<LongStartNote>();
             endLongNotes[i] = endNoteObjects[i].GetComponent<Note>();
         }        startPoint = updateStartPoint;        offScreenPos = 0.0f;	}			public bool hit(bool isLong){		if (activeNotes.Count > 0) {			int n = 1;			int i = 0;			if(gameSystemScript.longFlags[longLaneNum])
-            {				n = 0;				i++;			}			if (n == 1) {				return false;			}			StartCoroutine ("hiteffect", n);			return true;		}		return false;	}	public Timing preStartTiming = new Timing(0,0,0);	void Update(){       // Debug.Log(preStartTiming);
+            {				n = 0;				i++;			}			if (n == 1)
+            {
+                gameObject.GetComponent<ParticleSystem>().Stop();
+                gameObject.GetComponent<ParticleSystem>().Stop();
+                scoreAdd = false;
+                return false;			}
+            //StartCoroutine ("hiteffect", n);
+            if (!scoreAdd)
+            {
+                scoreAdd = true;
+                gameObject.GetComponent<AudioSource>().Play();
+                gameObject.GetComponent<ParticleSystem>().Play();
+            }			return true;		}		return false;	}    public bool scoreAdd = false;	public Timing preStartTiming = new Timing(0,0,0);	void Update(){       // Debug.Log(preStartTiming);
         if (equalTiming(Music.Near, startTimings[nextTimingNum], -1 * highSpeedLevel)) {
             if (preStartTiming != startTimings[nextTimingNum])
             {
@@ -49,6 +61,9 @@
                 activeLongNotes[0].obj.SetActive(false);
                 activeLongNotes.RemoveAt(0);
                 nowLong = false;
+                scoreAdd = false;
+                gameObject.GetComponent<ParticleSystem>().Stop();
+                gameObject.GetComponent<ParticleSystem>().Stop();
                 gameSystemScript.longFlags[longLaneNum] = nowLong;
 
                 longFlagNextTimingNum++;
@@ -58,8 +73,8 @@
         {
             if (Music.IsJustChangedAt(startTimings[longFlagNextTimingNum]))
             {
-                Debug.Log("nowLong!");
-                Debug.Log("longLaneNum :"+longLaneNum);
+              //  Debug.Log("nowLong!");
+               // Debug.Log("longLaneNum :"+longLaneNum);
                 gameSystemScript.longFlags[longLaneNum] = true;
             }
         }	}}
