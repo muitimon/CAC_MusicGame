@@ -5,7 +5,7 @@ using System.Collections.Generic;//追加.
 public class AllSystem : MonoBehaviour {
 
     public static int score = 0;
-    public static string loadJsonFileName = "kanki_Heaven_Easy";
+    public static string loadJsonFileName = "kanki_Heaven_Hard";
     public static List<int> scores = new List<int>();
     //public string level;
     // Use this for initialization

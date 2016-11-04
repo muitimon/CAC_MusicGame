@@ -39,7 +39,7 @@ public class CheckGesture : MonoBehaviour {
 
 	public string choiceSceneName = "Select_Level_ScriptTest";
 	public string ResultSceneName = "Result_ScriptTest";
-	public string GameSceneName = "Make_Object";
+	public string GameSceneName = "PlayGame";
 	private GameObject Head;
 
 	public GameObject gamesystem;

@@ -40,6 +40,7 @@ public class GameSystem : AllSystem {
     public int highSpeedLevel = 28;
 	public Vector3 startPoint;    public bool[] longFlags;
     public GameObject scoreText;
+    public GameObject heaven;
 
     public Timing musicEndTiming = new Timing(73, 0, 0);
 
@@ -71,13 +72,13 @@ public class GameSystem : AllSystem {
 		foreach (NoteInformation note in item.notes) {
 			int type = note.type;
 			if(type == 1){
-					Timing tmp = LoadTiming (note.num+highSpeedLevel+4);
+					Timing tmp = LoadTiming (note.num+64);
 					timingList [note.block].Add (tmp);
 			}else if(type == 2){
 				foreach (NoteInformation longNote in note.notes) {
 					LongNoteTiming tmp = new LongNoteTiming();
-					tmp.startTiming = LoadTiming (note.num+highSpeedLevel+4);
-					tmp.endTiming = LoadTiming (longNote.num+highSpeedLevel+4);
+					tmp.startTiming = LoadTiming (note.num+64);
+					tmp.endTiming = LoadTiming (longNote.num+64);
                  
 					longNoteStartTimingList [note.block].Add (tmp.startTiming);
 					longNoteEndTimingList [note.block].Add (tmp.endTiming);
@@ -132,8 +133,53 @@ public class GameSystem : AllSystem {
 	
 	// Update is called once per frame
 	void Update () {
-       // Debug.Log(score);
-		if(Input.GetKeyDown(KeyCode.S)){
+        // Debug.Log(score);
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (noteLane[0].hit())
+            {
+                score = score + 10;
+            }
+            if (longNoteLane[0].hit(true))
+            {
+                score = score + 3;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (noteLane[1].hit())
+            {
+                score = score + 10;
+            }
+            if (longNoteLane[1].hit(true))
+            {
+                score = score + 3;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (noteLane[2].hit())
+            {
+                score = score + 10;
+            }
+            if (longNoteLane[2].hit(true))
+            {
+                score = score + 3;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (noteLane[3].hit())
+            {
+                score = score + 10;
+            }
+            if (longNoteLane[3].hit(true))
+            {
+                score = score + 3;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.S)){
             if (noteLane[4].hit())
             {
                 score = score + 10;
@@ -176,13 +222,13 @@ public class GameSystem : AllSystem {
 		if(Input.GetKeyDown(KeyCode.V)){
 			if(noteLane [9].hit ())
             {
-                score = score + 10;
+                score = score + 1000;
             }
         }
 		if(Input.GetKeyDown(KeyCode.Space)){
 			if(noteLane [10].hit ())
             {
-                score = score + 10;
+                score = score + 1000;
             }
         }
 
@@ -192,6 +238,12 @@ public class GameSystem : AllSystem {
             scores.Sort();
 
             SceneManager.LoadScene(2);
+        }
+        if (!heaven.active) {
+            if (score > 10000)
+            {
+            heaven.SetActive(true);
+            }
         }
         scoreText.GetComponent<TextMesh>().text = score.ToString();
 	}
