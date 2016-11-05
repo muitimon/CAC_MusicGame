@@ -11,10 +11,10 @@ public class NoteData{
 public class Lane : MonoBehaviour {
 	public Vector3 updateStartPoint;
 	protected    Vector3 startPoint    =  new Vector3(0.0f, -28.0f, 60.0f);
-    protected int     nextTimingNum = 0;
+    public int     nextTimingNum = 0;
 	protected int     nextObjectNum = 0;
 	public    float   offScreenPos  = -10.0f;
-	public 	  GameObject[] 	 ranks       = new GameObject[2];
+	//public 	  GameObject[] 	 ranks       = new GameObject[2];
 	protected List<NoteData> activeNotes = new List<NoteData> ();
     public int highSpeedLevel;
 
@@ -30,7 +30,7 @@ public class Lane : MonoBehaviour {
 		}
 		return num;
 	}
-	public int hit(){
+	public bool hit(){
 		if (activeNotes.Count > 0) {
 			int n = 1;
 			int i = 0;
@@ -42,25 +42,27 @@ public class Lane : MonoBehaviour {
 				i++;
 			}
 			if (n == 1) {
-				return 1;
+				return false;
 			}
             StartCoroutine ("hiteffect", n);
 			activeNotes [i].obj.SetActive (false);
 			activeNotes.RemoveAt (i);
-			return n;
+			return true;
 		}
-		return 1;
+		return false;
 
 	}
 
 
 	IEnumerator hiteffect(int rank){
         gameObject.GetComponent<ParticleSystem>().Play();
+        gameObject.GetComponent<AudioSource>().Play();
         for (float f = 0.3f; f < 1.0f; f += 0.05f)
         {
             yield return null;
         }
         gameObject.GetComponent<ParticleSystem>().Stop();
+        gameObject.GetComponent<AudioSource>().Stop();
         /*GameObject obj = createRank(ranks [rank]);
 		obj.transform.localPosition = new Vector2 (-8.0f, 0.0f);
 		for (float f = 0.3f; f < 1.0f; f += 0.05f) {
@@ -75,8 +77,8 @@ public class Lane : MonoBehaviour {
 
 	protected int getGrade(Timing item){
 		float time = Music.MusicalTimeFrom (item);
-		time = Mathf.Abs (time);
-		if (time < 0.7f) {
+		//time = Mathf.Abs (time);
+		if (time < 1.8f&&time > -0.5f) {
 			return 0;
 		}
 		return 1;

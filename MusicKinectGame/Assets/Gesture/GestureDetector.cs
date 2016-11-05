@@ -10,6 +10,7 @@ using System.IO;
 using Windows.Kinect;
 using Microsoft.Kinect.VisualGestureBuilder;
 using UnityEngine;
+using UnityEngine.SceneManagement;// 画面遷移用
 
 public class GestureEventArgs : EventArgs
 {
@@ -50,15 +51,30 @@ public class GestureDetector : IDisposable
 
     public event EventHandler<GestureEventArgs> OnGestureDetected;
 
-	private GameObject gamesystem = GameObject.Find("GameSystem");
+	private GameObject gamesystem;
+	public string choiceSceneName = "Select_Level_ScriptTest";
+	public string ResultSceneName = "Result_ScriptTest";
 
-    /// <summary>
-    /// Initializes a new instance of the GestureDetector class along with the gesture frame source and reader
-    /// </summary>
-    /// <param name="kinectSensor">Active sensor to initialize the VisualGestureBuilderFrameSource object with</param>
-    public GestureDetector(KinectSensor kinectSensor, string fileName, string gestureName)
-    {
-        this.gestureDatabase = "GestureDB\\" + fileName;
+	/// <summary>
+	/// Initializes a new instance of the GestureDetector class along with the gesture frame source and reader
+	/// </summary>
+	/// <param name="kinectSensor">Active sensor to initialize the VisualGestureBuilderFrameSource object with</param>
+	public GestureDetector(KinectSensor kinectSensor, string fileName, string gestureName)
+	{
+		// シーン名によって、処理を変える
+		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(choiceSceneName))
+		{
+
+		}
+		else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(ResultSceneName))
+		{
+
+		}
+		else {
+			gamesystem = GameObject.Find("GameSystem");
+		}
+
+		this.gestureDatabase = "GestureDB\\" + fileName;
         this.gestureName = gestureName;
 
         if (kinectSensor == null)
@@ -287,9 +303,23 @@ public class GestureDetector : IDisposable
             if (isAction == false)
             {
                 isAction = true;
-				gamesystem.GetComponent<GameSystem>().GetInput(8);
+				
+				// シーン名によって、処理を変える
+				if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(choiceSceneName))
+				{
 
-				Debug.Log("J U M P ! !");
+				}
+				else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals(ResultSceneName))
+				{
+					// 難易度選択画面へ遷移
+					//SceneManager.LoadScene(choiceSceneName);
+				}
+				else
+				{
+					gamesystem.GetComponent<GameSystem>().GetInput(10);
+				}
+
+				//Debug.Log("J U M P ! !");
             }
         }
         else if (isAction == true)
@@ -305,7 +335,7 @@ public class GestureDetector : IDisposable
             if (isAction == false)
             {
                 isAction = true;
-                Debug.Log("R O L L I N G ! !");
+                //Debug.Log("R O L L I N G ! !");
             }
         }
         else if (isAction == true)

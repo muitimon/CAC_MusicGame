@@ -2,6 +2,8 @@
 using System;//追加.
 using System.Collections;
 using System.Collections.Generic;//追加.
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [Serializable]
 public class MusicSetting
@@ -33,15 +35,18 @@ public class LongNoteTiming{
 }
 
 [Serializable]
-public class GameSystem : MonoBehaviour {
-	public string loadJsonFileName;
+public class GameSystem : AllSystem {
 	public NoteLane[] noteLane = new NoteLane[11];
 	public LongNoteLane[] longNoteLane = new LongNoteLane[8];
     public int highSpeedLevel = 28;
-	public Vector3 startPoint;
+	public Vector3 startPoint;    public bool[] longFlags;
+    public GameObject heaven;
+    public GameObject scoretext;
 
-	void LoadJson(string fileName){
-		var textAsset =  Resources.Load ("kanki_Heaven_Hard") as TextAsset;
+    public Timing musicEndTiming = new Timing(73, 0, 0);
+
+    void LoadJson(string fileName){
+		var textAsset =  Resources.Load (fileName) as TextAsset;
 		var jsonText = textAsset.text;
 		MusicSetting item = JsonUtility.FromJson<MusicSetting>(jsonText);
 
@@ -50,6 +55,7 @@ public class GameSystem : MonoBehaviour {
 		List<Timing>[] longNoteStartTimingList = new List<Timing>[item.maxBlock-3];
 		List<Timing>[] longNoteEndTimingList = new List<Timing>[item.maxBlock-3];
         List<float>[] longActiveTimeList = new List<float>[item.maxBlock - 3];
+        longFlags = new bool[item.maxBlock - 3];
 		for(int i = 0;i<timingList.Length;i++){
 			//リストのリストになっている
 			timingList [i] = new List<Timing> ();
@@ -67,13 +73,13 @@ public class GameSystem : MonoBehaviour {
 		foreach (NoteInformation note in item.notes) {
 			int type = note.type;
 			if(type == 1){
-					Timing tmp = LoadTiming (note.num+32);
+					Timing tmp = LoadTiming (note.num+64);
 					timingList [note.block].Add (tmp);
 			}else if(type == 2){
 				foreach (NoteInformation longNote in note.notes) {
 					LongNoteTiming tmp = new LongNoteTiming();
-					tmp.startTiming = LoadTiming (note.num+32);
-					tmp.endTiming = LoadTiming (longNote.num+32);
+					tmp.startTiming = LoadTiming (note.num+64);
+					tmp.endTiming = LoadTiming (longNote.num+64);
                  
 					longNoteStartTimingList [note.block].Add (tmp.startTiming);
 					longNoteEndTimingList [note.block].Add (tmp.endTiming);
@@ -102,6 +108,7 @@ public class GameSystem : MonoBehaviour {
             longNoteLane[i].longActiveTimes = longActiveTimeList[i].ToArray();
             longNoteLane[i].highSpeedLevel = highSpeedLevel;
 			longNoteLane [i].updateStartPoint = startPoint;
+            longNoteLane[i].longLaneNum = i;
         }
 	}
 
@@ -111,74 +118,205 @@ public class GameSystem : MonoBehaviour {
 		int unit = n % 4;
 		return new Timing (bar, beat, unit);
 	}
-
+ 
 	void Awake(){
+        //loadJsonFileName = "kanki_Heaven_Hard";
+        
+        score = 0;
 		LoadJson (loadJsonFileName);
-		for (int i = 0; i < noteLane.Length; i++) {
+		/*for (int i = 0; i < noteLane.Length; i++) {
 			noteLane [i].enabled = true;
-		}
+		}*/
 	}
 
 	// Use this for initialization
-	void Start () {
-	}
+
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.S)){
-			noteLane [4].hit ();
-			longNoteLane[4].hit(true);
-		}
+        // Debug.Log(score);
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (noteLane[0].hit())
+            {
+               // Debug.Log("R_UP");
+                score = score + 10;
+            }
+            if (longNoteLane[0].hit(true))
+            {
+                score = score + 3;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (noteLane[1].hit())
+            {
+              //  Debug.Log("R_RIGHT");
+                score = score + 10;
+            }
+            if (longNoteLane[1].hit(true))
+            {
+                score = score + 3;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (noteLane[2].hit())
+            {
+                score = score + 10;
+            }
+            if (longNoteLane[2].hit(true))
+            {
+                score = score + 3;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (noteLane[3].hit())
+            {
+                score = score + 10;
+            }
+            if (longNoteLane[3].hit(true))
+            {
+                score = score + 3;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.S)){
+            if (noteLane[4].hit())
+            {
+                score = score + 10;
+            }
+			if(longNoteLane[4].hit(true))
+            {
+                score = score + 3;
+            }
+        }
 		if(Input.GetKeyDown(KeyCode.C)){
-			noteLane [5].hit ();
-			longNoteLane[5].hit(true);
-		}
+			if(noteLane [5].hit ())
+            {
+                score = score + 10;
+            }
+            if (longNoteLane[5].hit(true))
+            {
+                score = score + 3;
+            }
+        }
 		if(Input.GetKeyDown(KeyCode.Z)){
-			noteLane [6].hit ();
-			longNoteLane[6].hit(true);
-		}
+			if(noteLane [6].hit ())
+            {
+                score = score + 10;
+            }
+            if(longNoteLane[6].hit(true))
+            {
+                score = score + 3;
+            }
+        }
 		if(Input.GetKeyDown(KeyCode.X)){
-			noteLane [7].hit ();
-			longNoteLane[7].hit(true);
-		}
+			if(noteLane [7].hit ())
+            {
+                score = score + 10;
+            }
+            if(longNoteLane[7].hit(true))
+            {
+                score = score + 3;
+            }
+        }
 		if(Input.GetKeyDown(KeyCode.V)){
-			noteLane [9].hit ();
-		}
-		if(Input.GetKeyDown(KeyCode.Space)){
-			noteLane [10].hit ();
-		}
+			if(noteLane [10].hit ())
+            {
+                score = score + 1000;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (noteLane[9].hit())
+            {
+                score = score + 1000;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Space)){
+			if(noteLane [8].hit ())
+            {
+                score = score + 10000;
+            }
+        }
+
+        if (Music.IsJustChangedAt(musicEndTiming))
+        {
+            scores.Add(score);
+            scores.Sort();
+
+            SceneManager.LoadScene(2);
+        }
+        if (!heaven.active) {
+            if (score > 10000)
+            {
+            heaven.SetActive(true);
+            }
+        }
+        scoretext.GetComponent<Text>().text = score.ToString();
 	}
 
 
 	public void GetInput(int n)
-	{
-		if (n == 4)
+    {
+        if (n == 0)
+        {
+            if (noteLane[0].hit()) { score = score + 10; }
+            if (longNoteLane[0].hit(true)) { score = score + 3; }
+
+        }
+        if (n == 3)
+        {
+            if (noteLane[1].hit()) { score = score + 10; }
+            if (longNoteLane[1].hit(true)) { score = score + 3; }
+        }
+        if (n == 2)
+        {
+            if (noteLane[2].hit()) { score = score + 10; }
+            if (longNoteLane[2].hit(true)) { score = score + 3; }
+        }
+        if (n == 1)
+        {
+            if (noteLane[3].hit() ) { score = score + 10; }
+            if (longNoteLane[3].hit(true)) { score = score + 3; }
+        }
+        if (n == 4)
+        {
+            if (noteLane[4].hit()) { score = score + 10; }
+            if (longNoteLane[4].hit(true)) { score = score + 3; }
+
+        }
+        if (n == 7)
+        {
+            if (noteLane[5].hit()) { score = score + 10; }
+            if (longNoteLane[5].hit(true)) { score = score + 3;}
+        }
+        if (n == 6)
+        {
+            if (noteLane[6].hit() ) { score = score + 10; }
+            if (longNoteLane[6].hit(true)) { score = score + 3; }
+        }
+        if (n == 5)
+        {
+            if (noteLane[7].hit()) { score = score + 10; }
+            if (longNoteLane[7].hit(true)) { score = score + 3; }
+        }
+        if (n == 9)
 		{
-			noteLane[4].hit();
-			longNoteLane[4].hit(true);
-		}
-		if (n == 7)
-		{
-			noteLane[5].hit();
-			longNoteLane[5].hit(true);
-		}
-		if (n == 6)
-		{
-			noteLane[6].hit();
-			longNoteLane[6].hit(true);
-		}
-		if (n == 5)
-		{
-			noteLane[7].hit();
-			longNoteLane[7].hit(true);
-		}
-		if (n == 9)
-		{
-			noteLane[10].hit();
-		}
-		if (n == 10)
-		{
-			noteLane[8].hit();
-		}
-	}
+            if (noteLane[10].hit()) { score = score + 1000; }
+        }
+        if (n == 8)
+        {
+            if (noteLane[9].hit()) { score = score + 1000; }
+        }
+
+        // ジャンプ
+        if (n == 10)
+        {
+            Debug.Log("jumptime");
+            if (noteLane[8].hit()) { score = score + 5000; }
+        }
+    }
 }
