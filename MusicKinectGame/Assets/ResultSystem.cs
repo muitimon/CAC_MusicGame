@@ -12,9 +12,9 @@ public class ResultSystem : AllSystem {
         scoreText.GetComponent<Text>().text = score.ToString();
 
         string temp = "";
-        for (int i =scores.Count-1; i>=0;i--)
+        for (int i = 0; i<scores.Count; i++)
         {
-            int j = i + 1;
+            int j = scores.Count - i;
             temp = j + "位 " + scores[i] + "\n" + temp;
         }
         scoresText.GetComponent<Text>().text = temp;
