@@ -189,7 +189,7 @@ public class GameSystem : AllSystem {
             }
 			if(longNoteLane[4].hit(true))
             {
-                score = score + 10;
+                score = score + 3;
             }
         }
 		if(Input.GetKeyDown(KeyCode.C)){
@@ -199,7 +199,7 @@ public class GameSystem : AllSystem {
             }
             if (longNoteLane[5].hit(true))
             {
-                score = score + 10;
+                score = score + 3;
             }
         }
 		if(Input.GetKeyDown(KeyCode.Z)){
@@ -209,7 +209,7 @@ public class GameSystem : AllSystem {
             }
             if(longNoteLane[6].hit(true))
             {
-                score = score + 10;
+                score = score + 3;
             }
         }
 		if(Input.GetKeyDown(KeyCode.X)){
@@ -219,7 +219,7 @@ public class GameSystem : AllSystem {
             }
             if(longNoteLane[7].hit(true))
             {
-                score = score + 10;
+                score = score + 3;
             }
         }
 		if(Input.GetKeyDown(KeyCode.V)){
