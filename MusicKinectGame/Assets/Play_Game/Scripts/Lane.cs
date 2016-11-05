@@ -77,8 +77,8 @@ public class Lane : MonoBehaviour {
 
 	protected int getGrade(Timing item){
 		float time = Music.MusicalTimeFrom (item);
-		time = Mathf.Abs (time);
-		if (time < 1.0f) {
+		//time = Mathf.Abs (time);
+		if (time < 1.8f&&time > -0.5f) {
 			return 0;
 		}
 		return 1;
