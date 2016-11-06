@@ -9,7 +9,7 @@ public class ResultSystem : AllSystem {
    // public GameObject text;
     public GameObject scoresText;
     public GameObject scoreText;
-	public string saveDataPath = "Assets/score.txt";
+	public string saveDataPath = @"score.txt";
 
 	// Use this for initialization
 	void Start () {
